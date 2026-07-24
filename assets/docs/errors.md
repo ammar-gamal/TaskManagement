@@ -76,15 +76,6 @@ All the APIs use the following HTTP status codes:
 
 ---
 
-# Content Type
-
-Error responses are returned using:
-
-```http
-Content-Type: application/json
-```
-
----
 
 # Example
 
