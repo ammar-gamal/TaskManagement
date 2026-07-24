@@ -1,8 +1,8 @@
 # Error Responses
 
-This API uses the **Problem Details for HTTP APIs** format (`application/problem+json`) for all error responses.
+All errors returned by all APIs follow a consistent structure to make error handling easier for clients.
 
-All errors returned by the API follow a consistent structure to make error handling easier for clients.
+All APIs return errors as **Problem Details** objects, following the [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) format.
 
 ---
 
@@ -14,6 +14,8 @@ All errors returned by the API follow a consistent structure to make error handl
   "title": "Error Title",
   "status": 400,
   "detail": "A detailed description of the error.",
+  "instance": "/api/projects",
+  "requestId": "0HNF2M4JQ9B8A:00000001",
   "traceId": "00-..."
 }
 ```
@@ -26,7 +28,9 @@ All errors returned by the API follow a consistent structure to make error handl
 | `title` | string | Short description of the error. |
 | `status` | integer | HTTP status code. |
 | `detail` | string | Detailed explanation of the error. |
-| `traceId` | string | Unique request identifier used for troubleshooting. |
+| `instance` | string | The request path where the error occurred. |
+| `requestId` | string | Unique identifier for the HTTP request, useful for correlating application logs. |
+| `traceId` | string | Unique identifier used for troubleshooting. |
 
 ---
 
@@ -41,6 +45,10 @@ Example:
   "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
   "title": "One or more validation errors occurred.",
   "status": 400,
+  "detail": "See the errors property for additional details.",
+  "instance": "/api/auth/register",
+  "requestId": "0HNF2M4JQ9B8A:00000002",
+  "traceId": "00-...",
   "errors": {
     "username": [
       "The Username field is required."
@@ -48,8 +56,7 @@ Example:
     "password": [
       "The Password field is required."
     ]
-  },
-  "traceId": "00-..."
+  }
 }
 ```
 
@@ -57,16 +64,14 @@ Example:
 
 # HTTP Status Codes
 
-The API uses the following status codes:
+All the APIs use the following HTTP status codes:
 
 | Status Code | Description |
 |-------------|-------------|
 | **400 Bad Request** | The request is invalid or contains invalid data. |
 | **401 Unauthorized** | Authentication is required or authentication failed. |
-| **403 Forbidden** | The authenticated user is not allowed to perform this operation. |
 | **404 Not Found** | The requested resource does not exist. |
 | **409 Conflict** | The request conflicts with the current state of the resource. |
-| **429 Too Many Requests** | The client has sent too many requests in a given time period. |
 | **500 Internal Server Error** | An unexpected server error occurred. |
 
 ---
@@ -76,7 +81,7 @@ The API uses the following status codes:
 Error responses are returned using:
 
 ```http
-Content-Type: application/problem+json
+Content-Type: application/json
 ```
 
 ---
@@ -88,13 +93,18 @@ Request:
 ```http
 POST /api/auth/login
 Content-Type: application/json
+
+{
+  "username": "ammar",
+  "password": "12345"
+}
 ```
 
 Response:
 
 ```http
 HTTP/1.1 401 Unauthorized
-Content-Type: application/problem+json
+Content-Type: application/json
 ```
 
 ```json
@@ -103,6 +113,8 @@ Content-Type: application/problem+json
   "title": "Invalid Credentials",
   "status": 401,
   "detail": "Username or password is incorrect.",
+  "instance": "/api/auth/login",
+  "requestId": "0HNF2M4JQ9B8A:00000003",
   "traceId": "00-abc123"
 }
 ```
