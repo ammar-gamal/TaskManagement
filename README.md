@@ -150,9 +150,7 @@ Swagger UI is available at `http://localhost:5028/swagger`.
   deleted rows unless explicitly overridden.
 
 - **Cascade delete foreign key.** The foreign key from `Tasks.ProjectId` to
-  `Projects.Id` uses cascade delete. This acts as a safety net: if a project is
-  ever hard-deleted directly in SQL, its related tasks are automatically removed
-  instead of becoming orphaned records.
+  `Projects.Id` is configured with cascade delete. When a project is deleted through the application, both the project and its tasks are soft-deleted. However, if a project is deleted directly in SQL, the database cascade deletes the related tasks, resulting in a hard delete.
 
 - **Indexes.**
   - **Projects Table**
@@ -175,7 +173,7 @@ Swagger UI is available at `http://localhost:5028/swagger`.
   
 The solution has two test projects: `TaskManagement.UnitTests` and `TaskManagement.IntegrationTests`.
 
-- **Unit tests** Unit tests cover application logic in isolation by mocking the dependencies of SUT(System Under Test). They verify task and project CRUD operations, business rule validations (such as due-date constraints), and entity-to-DTO mapping behavior.
+- **Unit tests** Unit tests cover application logic in isolation by mocking the dependencies of SUT(System Under Test). They verify task and project CRUD operations, business rule validations (such as due-date constraints), and DTO↔entity mapping behavior.
 - **Integration tests** spin up the real ASP.NET Core pipeline via `WebApplicationFactory`, it use a **real SQL Server container** (via Testcontainers) — no mocking of the database. They cover full HTTP flows including:
   - Create project → add task → mark task done → delete project (cascade)
   - Filtering tasks by status and priority
