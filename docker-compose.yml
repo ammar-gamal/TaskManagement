@@ -13,10 +13,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-        restart: true
       logging:
         condition: service_healthy
-        restart: true
     networks:
       - almentor-network
 
