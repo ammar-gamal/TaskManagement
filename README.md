@@ -125,20 +125,20 @@ Swagger UI is available at `http://localhost:5028/swagger`.
 
 | Resource | Description |
 |----------|-------------|
-| [Authentication API](assests/docs/authentication.md) | User registration and login endpoints. |
-| [Projects API](assests/docs/projects.md) | Project management and project-related task endpoints. |
-| [Tasks API](assests/docs/tasks.md) | Task management, filtering, sorting, and pagination endpoints. |
-| [Error Responses](assests/docs/errors.md) | Common API error response format and status codes. |
+| [Authentication API](assets/docs/authentication.md) | User registration and login endpoints. |
+| [Projects API](assets/docs/projects.md) | Project management and project-related task endpoints. |
+| [Tasks API](assets/docs/tasks.md) | Task management, filtering, sorting, and pagination endpoints. |
+| [Error Responses](assets/docs/errors.md) | Common API error response format and status codes. |
 
 ## Schema Design
 
 **ERD**
 
-![ERD Diagram](./assests/ERD.jpg)
+![ERD Diagram](./assets/ERD.jpg)
 
 **Schema**
 
-![Schema Diagram](./assests/Schema.jpg)
+![Schema Diagram](./assets/Schema.jpg)
 
 ## Design Choices
 
