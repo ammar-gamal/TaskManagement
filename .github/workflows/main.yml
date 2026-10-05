@@ -19,7 +19,7 @@ jobs:
             - name: Build Code
               run: dotnet build 
             - name: Run Unit Tests
-              run: dotnet ./tests/TaskManagement.UnitTests
+              run: dotnet test ./tests/TaskManagement.UnitTests
             - name: Run Integration Tests
-              run: dotnet ./tests/TaskManagement.IntegrationTests
+              run: dotnet test ./tests/TaskManagement.IntegrationTests
               
